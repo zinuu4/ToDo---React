@@ -32,10 +32,22 @@ function Todo({todos, completeTodo, removeTodo, updateTodo}) {
         <div className="icons">
           <RiCloseCircleLine
             onClick={() => removeTodo(todo.id)}
-            className='delete-icon'/>
+            className='delete-icon'
+            tabIndex={1}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                removeTodo(todo.id);
+              }
+            }}/>
           <TiEdit
             onClick={() => setEdit({id: todo.id, value: todo.text})}
-            className='edit-icon'/>
+            className='edit-icon'
+            tabIndex={1}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                setEdit({id: todo.id, value: todo.text});
+              }
+            }}/>
         </div>
 
     </div>
