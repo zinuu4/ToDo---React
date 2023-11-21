@@ -1,18 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
+import React, { useState, FC, KeyboardEvent } from 'react';
+import { RiCloseCircleLine } from 'react-icons/ri';
 
-export const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
-  const [edit, setEdit] = useState({
+import { TodoForm } from './TodoForm';
+import { Todo as TodoInterface } from '@/shared/types/todo';
+
+interface TodoProps {
+  todos: TodoInterface[];
+  completeTodo: (id: number) => void;
+  removeTodo: (id: number) => void;
+  updateTodo: (id: number, value: string) => void;
+}
+
+export const Todo: FC<TodoProps> = ({
+  todos,
+  completeTodo,
+  removeTodo,
+  updateTodo,
+}) => {
+  const [edit, setEdit] = useState<{ id: number | null; value: string }>({
     id: null,
     value: '',
   });
 
-  const submitUpdate = (value) => {
-    updateTodo(edit.id, value);
+  const submitUpdate = (todo: TodoInterface) => {
+    if (edit.id) {
+      updateTodo(edit.id, todo.text);
+    }
+
     setEdit({
       id: null,
       value: '',
@@ -36,7 +53,7 @@ export const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           onClick={() => removeTodo(todo.id)}
           className="delete-icon"
           tabIndex={1}
-          onKeyPress={(event) => {
+          onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
               removeTodo(todo.id);
             }
@@ -46,7 +63,7 @@ export const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           onClick={() => setEdit({ id: todo.id, value: todo.text })}
           className="edit-icon"
           tabIndex={1}
-          onKeyPress={(event) => {
+          onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
               setEdit({ id: todo.id, value: todo.text });
             }

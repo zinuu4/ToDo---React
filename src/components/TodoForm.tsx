@@ -1,24 +1,46 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  FC,
+  ChangeEvent,
+  FormEvent,
+  RefObject,
+} from 'react';
 
-export const TodoForm = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+import { Todo as TodoInterface } from '@/shared/types/todo';
 
-  const inputRef = useRef(null);
+interface TodoFormProps {
+  onSubmit: (todo: TodoInterface) => void;
+  edit?: { id: number | null; value: string };
+}
+
+export const TodoForm: FC<TodoFormProps> = ({ onSubmit, edit }) => {
+  const [input, setInput] = useState(edit ? edit.value : '');
+
+  const inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    props.onSubmit({
+    onSubmit({
+      id: Math.floor(Math.random() * 10000),
+      text: input,
+    });
+
+    console.log({
       id: Math.floor(Math.random() * 10000),
       text: input,
     });
@@ -28,7 +50,7 @@ export const TodoForm = (props) => {
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
-      {props.edit ? (
+      {edit ? (
         <>
           <input
             type="text"
