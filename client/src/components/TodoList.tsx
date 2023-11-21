@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import { TodoForm } from './TodoForm';
 import { Todos } from './Todos';
 import { Todo as TodoInterface } from '@/shared/types/todo';
@@ -8,25 +10,24 @@ import { Todo as TodoInterface } from '@/shared/types/todo';
 export const TodoList = () => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
 
-  const addTodo = (todo: TodoInterface) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-
-    setTodos(newTodos);
-  };
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/todo/todos`,
+      );
+      setTodos(response.data);
+    };
+    fetchTodos();
+  }, []);
 
   const updateTodo = (todoId: number, newValue: string) => {
     if (!newValue || /^\s*$/.test(newValue)) {
       return;
     }
-
     setTodos((prev) =>
       prev.map((item) =>
-        item.id === todoId ? { ...item, text: newValue } : item
-      )
+        item.id === todoId ? { ...item, title: newValue } : item,
+      ),
     );
   };
 
@@ -34,7 +35,6 @@ export const TodoList = () => {
 
   const removeTodo = (id: number) => {
     const removeArr = [...todos].filter((todo) => todo.id !== id);
-
     setTodos(removeArr);
   };
 
@@ -51,7 +51,7 @@ export const TodoList = () => {
   return (
     <div>
       <h1>What&apos;s the Plan for Today?</h1>
-      <TodoForm onSubmit={addTodo} />
+      <TodoForm />
       <Todos
         todos={todos}
         completeTodo={completeTodo}

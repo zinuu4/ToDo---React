@@ -9,15 +9,13 @@ import React, {
   FormEvent,
   RefObject,
 } from 'react';
-
-import { Todo as TodoInterface } from '@/shared/types/todo';
+import axios from 'axios';
 
 interface TodoFormProps {
-  onSubmit: (todo: TodoInterface) => void;
   edit?: { id: number | null; value: string };
 }
 
-export const TodoForm: FC<TodoFormProps> = ({ onSubmit, edit }) => {
+export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
   const [input, setInput] = useState(edit ? edit.value : '');
 
   const inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
@@ -32,14 +30,19 @@ export const TodoForm: FC<TodoFormProps> = ({ onSubmit, edit }) => {
     setInput(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit({
+    const todoData = {
+      title: input,
       id: Math.floor(Math.random() * 10000),
-      text: input,
-      isComplete: false,
-    });
+      isCompleted: false,
+    };
+
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/todo/add-todo`,
+      todoData,
+    );
 
     setInput('');
   };
