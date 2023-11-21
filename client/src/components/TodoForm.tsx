@@ -36,7 +36,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
     const todoData = {
       title: input,
       id: Math.floor(Math.random() * 10000),
-      isComplete: false,
+      isCompleted: false,
     };
 
     await axios.post(

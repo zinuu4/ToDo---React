@@ -28,7 +28,7 @@ export const Todo: FC<TodoProps> = ({
       key={todo.id}
     >
       <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-        {todo.text}
+        {todo.title}
       </div>
       <div className="icons">
         <RiCloseCircleLine
@@ -42,12 +42,12 @@ export const Todo: FC<TodoProps> = ({
           }}
         />
         <TiEdit
-          onClick={() => setEdit({ id: todo.id, value: todo.text })}
+          onClick={() => setEdit({ id: todo.id, value: todo.title })}
           className="edit-icon"
           tabIndex={1}
           onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
-              setEdit({ id: todo.id, value: todo.text });
+              setEdit({ id: todo.id, value: todo.title });
             }
           }}
         />
