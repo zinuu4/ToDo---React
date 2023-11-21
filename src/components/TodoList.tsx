@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import Todo from './Todo';
+import { TodoForm } from './TodoForm';
+import { Todo } from './Todo';
+import { Todo as TodoInterface } from '@/shared/types/todo';
 
 export const TodoList = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<TodoInterface[] | []>([]);
 
-  const addTodo = (todo) => {
+  const addTodo = (todo: TodoInterface) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
@@ -17,23 +18,24 @@ export const TodoList = () => {
     setTodos(newTodos);
   };
 
-  const updateTodo = (todoId, newValue) => {
+  const updateTodo = (todoId: number, newValue: string) => {
     if (!newValue || /^\s*$/.test(newValue)) {
       return;
     }
 
+    // @ts-ignore
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
     );
   };
 
-  const removeTodo = (id) => {
+  const removeTodo = (id: number) => {
     const removeArr = [...todos].filter((todo) => todo.id !== id);
 
     setTodos(removeArr);
   };
 
-  const completeTodo = (id) => {
+  const completeTodo = (id: number) => {
     let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
         todo.isComplete = !todo.isComplete;
@@ -45,7 +47,7 @@ export const TodoList = () => {
 
   return (
     <div>
-      <h1>What's the Plan for Today?</h1>
+      <h1>What&apos;s the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
       <Todo
         todos={todos}
