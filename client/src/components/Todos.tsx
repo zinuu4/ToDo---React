@@ -24,19 +24,8 @@ export const Todos: FC<TodoProps> = ({
     value: '',
   });
 
-  const submitUpdate = (todo: TodoInterface) => {
-    if (edit.id) {
-      updateTodo(edit.id, todo.text);
-    }
-
-    setEdit({
-      id: null,
-      value: '',
-    });
-  };
-
   if (edit.id) {
-    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+    return <TodoForm edit={edit} />;
   }
 
   return todos?.map((todo, index) => (

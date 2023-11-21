@@ -8,16 +8,6 @@ import { Todo as TodoInterface } from '@/shared/types/todo';
 export const TodoList = () => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
 
-  const addTodo = (todo: TodoInterface) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-
-    setTodos(newTodos);
-  };
-
   const updateTodo = (todoId: number, newValue: string) => {
     if (!newValue || /^\s*$/.test(newValue)) {
       return;
@@ -25,8 +15,8 @@ export const TodoList = () => {
 
     setTodos((prev) =>
       prev.map((item) =>
-        item.id === todoId ? { ...item, text: newValue } : item
-      )
+        item.id === todoId ? { ...item, text: newValue } : item,
+      ),
     );
   };
 
@@ -51,7 +41,7 @@ export const TodoList = () => {
   return (
     <div>
       <h1>What&apos;s the Plan for Today?</h1>
-      <TodoForm onSubmit={addTodo} />
+      <TodoForm />
       <Todos
         todos={todos}
         completeTodo={completeTodo}
