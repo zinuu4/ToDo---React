@@ -1,49 +1,31 @@
-'use client';
-
-import { TiEdit } from 'react-icons/ti';
-import React, { useState, FC, KeyboardEvent } from 'react';
+import React, { Dispatch, FC, KeyboardEvent, SetStateAction } from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
+import { TiEdit } from 'react-icons/ti';
 
-import { TodoForm } from './TodoForm';
 import { Todo as TodoInterface } from '@/shared/types/todo';
 
 interface TodoProps {
-  todos: TodoInterface[];
+  todo: TodoInterface;
   completeTodo: (id: number) => void;
   removeTodo: (id: number) => void;
-  updateTodo: (id: number, value: string) => void;
+  setEdit: Dispatch<
+    SetStateAction<{
+      id: number | null;
+      value: string;
+    }>
+  >;
 }
 
 export const Todo: FC<TodoProps> = ({
-  todos,
+  todo,
   completeTodo,
   removeTodo,
-  updateTodo,
+  setEdit,
 }) => {
-  const [edit, setEdit] = useState<{ id: number | null; value: string }>({
-    id: null,
-    value: '',
-  });
-
-  const submitUpdate = (todo: TodoInterface) => {
-    if (edit.id) {
-      updateTodo(edit.id, todo.text);
-    }
-
-    setEdit({
-      id: null,
-      value: '',
-    });
-  };
-
-  if (edit.id) {
-    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
-  }
-
-  return todos.map((todo, index) => (
+  return (
     <div
       className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
-      key={index}
+      key={todo.id}
     >
       <div key={todo.id} onClick={() => completeTodo(todo.id)}>
         {todo.text}
@@ -71,5 +53,5 @@ export const Todo: FC<TodoProps> = ({
         />
       </div>
     </div>
-  ));
+  );
 };
