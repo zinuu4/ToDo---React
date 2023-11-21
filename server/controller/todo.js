@@ -8,3 +8,12 @@ exports.postAddTodo = async (req, res) => {
     res.status(500).json(e.message);
   }
 };
+
+exports.getTodos = async (req, res) => {
+  try {
+    const todos = await Todo.find();
+    return res.status(200).json(todos);
+  } catch (e) {
+    res.status(500).json(e.message);
+  }
+};
