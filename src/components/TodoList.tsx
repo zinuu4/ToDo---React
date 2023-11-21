@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { TodoForm } from './TodoForm';
-import { Todo } from './Todo';
+import { Todos } from './Todos';
 import { Todo as TodoInterface } from '@/shared/types/todo';
 
 export const TodoList = () => {
@@ -23,11 +23,14 @@ export const TodoList = () => {
       return;
     }
 
-    // @ts-ignore
     setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
+      prev.map((item) =>
+        item.id === todoId ? { ...item, text: newValue } : item
+      )
     );
   };
+
+  console.log(todos);
 
   const removeTodo = (id: number) => {
     const removeArr = [...todos].filter((todo) => todo.id !== id);
@@ -49,7 +52,7 @@ export const TodoList = () => {
     <div>
       <h1>What&apos;s the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
-      <Todo
+      <Todos
         todos={todos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}

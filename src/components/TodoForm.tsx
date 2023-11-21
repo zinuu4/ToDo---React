@@ -38,11 +38,7 @@ export const TodoForm: FC<TodoFormProps> = ({ onSubmit, edit }) => {
     onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,
-    });
-
-    console.log({
-      id: Math.floor(Math.random() * 10000),
-      text: input,
+      isComplete: false,
     });
 
     setInput('');
@@ -50,35 +46,20 @@ export const TodoForm: FC<TodoFormProps> = ({ onSubmit, edit }) => {
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
-      {edit ? (
-        <>
-          <input
-            type="text"
-            placeholder="Update your item"
-            value={input}
-            className="todo-input edit"
-            onChange={handleChange}
-            ref={inputRef}
-          />
-          <button tabIndex={1} className="todo-button edit">
-            Update
-          </button>
-        </>
-      ) : (
-        <>
-          <input
-            type="text"
-            placeholder="Add a todo"
-            value={input}
-            className="todo-input"
-            onChange={handleChange}
-            ref={inputRef}
-          />
-          <button tabIndex={1} className="todo-button">
-            Add todo
-          </button>
-        </>
-      )}
+      <input
+        type="text"
+        placeholder={edit ? 'Update your item' : 'Add a todo'}
+        value={input}
+        className={edit ? 'todo-input edit' : 'todo-input'}
+        onChange={handleChange}
+        ref={inputRef}
+      />
+      <button
+        tabIndex={1}
+        className={edit ? 'todo-button edit' : 'todo-button'}
+      >
+        {edit ? 'Update' : 'Add todo'}
+      </button>
     </form>
   );
 };
