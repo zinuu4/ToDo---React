@@ -3,9 +3,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { Todo as TodoInterface } from '@/shared/types';
+
 import { TodoForm } from './TodoForm';
 import { Todos } from './Todos';
-import { Todo as TodoInterface } from '@/shared/types';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface TodoListProps {
   dictionary: any;
@@ -27,6 +29,7 @@ export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
   return (
     <div>
       <h1>{dictionary.todo.todoListTitle}</h1>
+      <LanguageSwitcher />
       <TodoForm />
       <Todos todos={todos} />
     </div>
