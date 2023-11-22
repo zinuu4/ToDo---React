@@ -10,6 +10,8 @@ import { Todo as TodoInterface } from '@/shared/types/todo';
 export const TodoList = () => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
 
+  console.log(todos);
+
   useEffect(() => {
     const fetchTodos = async () => {
       const response = await axios.get(
@@ -26,22 +28,15 @@ export const TodoList = () => {
     }
     setTodos((prev) =>
       prev.map((item) =>
-        item.id === todoId ? { ...item, title: newValue } : item,
+        item._id === todoId ? { ...item, title: newValue } : item,
       ),
     );
   };
 
-  console.log(todos);
-
-  const removeTodo = (id: number) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
-    setTodos(removeArr);
-  };
-
   const completeTodo = (id: number) => {
     let updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
+      if (todo._id === id) {
+        todo.isCompleted = !todo.isCompleted;
       }
       return todo;
     });
@@ -55,7 +50,6 @@ export const TodoList = () => {
       <Todos
         todos={todos}
         completeTodo={completeTodo}
-        removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
     </div>
