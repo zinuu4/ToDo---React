@@ -22,17 +22,6 @@ export const TodoList = () => {
     fetchTodos();
   }, []);
 
-  const updateTodo = (todoId: number, newValue: string) => {
-    if (!newValue || /^\s*$/.test(newValue)) {
-      return;
-    }
-    setTodos((prev) =>
-      prev.map((item) =>
-        item._id === todoId ? { ...item, title: newValue } : item,
-      ),
-    );
-  };
-
   const completeTodo = (id: number) => {
     let updatedTodos = todos.map((todo) => {
       if (todo._id === id) {
@@ -47,11 +36,7 @@ export const TodoList = () => {
     <div>
       <h1>What&apos;s the Plan for Today?</h1>
       <TodoForm />
-      <Todos
-        todos={todos}
-        completeTodo={completeTodo}
-        updateTodo={updateTodo}
-      />
+      <Todos todos={todos} completeTodo={completeTodo} />
     </div>
   );
 };

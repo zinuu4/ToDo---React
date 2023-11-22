@@ -8,12 +8,7 @@ interface TodoProps {
   todo: TodoInterface;
   completeTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
-  setEdit: Dispatch<
-    SetStateAction<{
-      id: number | null;
-      value: string;
-    }>
-  >;
+  setEdit: Dispatch<SetStateAction<TodoInterface>>;
 }
 
 export const Todo: FC<TodoProps> = ({
@@ -27,27 +22,37 @@ export const Todo: FC<TodoProps> = ({
       className={todo.isCompleted ? 'todo-row complete' : 'todo-row'}
       key={todo._id}
     >
-      <div key={todo._id} onClick={() => completeTodo(todo._id)}>
+      <div key={todo._id} onClick={() => completeTodo(todo._id!)}>
         {todo.title}
       </div>
       <div className="icons">
         <RiCloseCircleLine
-          onClick={() => deleteTodo(todo._id)}
+          onClick={() => deleteTodo(todo._id!)}
           className="delete-icon"
           tabIndex={1}
           onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
-              deleteTodo(todo._id);
+              deleteTodo(todo._id!);
             }
           }}
         />
         <TiEdit
-          onClick={() => setEdit({ id: todo._id, value: todo.title })}
+          onClick={() =>
+            setEdit({
+              _id: todo._id,
+              title: todo.title,
+              isCompleted: todo.isCompleted,
+            })
+          }
           className="edit-icon"
           tabIndex={1}
           onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
-              setEdit({ id: todo._id, value: todo.title });
+              setEdit({
+                _id: todo._id,
+                title: todo.title,
+                isCompleted: todo.isCompleted,
+              });
             }
           }}
         />

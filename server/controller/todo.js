@@ -18,6 +18,18 @@ exports.addTodo = async (req, res) => {
   }
 };
 
+exports.updateTodo = async (req, res) => {
+  try {
+    const todo = req.body;
+    await Todo.findByIdAndUpdate(todo._id, todo, {
+      new: true,
+    });
+    return res.status(200).json('Todo updated');
+  } catch (e) {
+    res.status(500).json(e.message);
+  }
+};
+
 exports.deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
