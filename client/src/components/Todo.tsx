@@ -3,7 +3,7 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 import axios from 'axios';
 
-import { Todo as TodoInterface } from '@/shared/types/todo';
+import { Todo as TodoInterface } from '@/shared/types';
 
 interface TodoProps {
   todo: TodoInterface;
