@@ -35,14 +35,14 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
 
     const todoData = {
       title: input,
-      id: Math.floor(Math.random() * 10000),
       isCompleted: false,
     };
 
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/todo/add-todo`,
-      todoData,
-    );
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData)
+      .then(() => {
+        window.location.reload();
+      });
 
     setInput('');
   };
