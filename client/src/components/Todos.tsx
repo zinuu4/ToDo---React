@@ -9,10 +9,9 @@ import { Todo } from './Todo';
 
 interface TodoProps {
   todos: TodoInterface[];
-  completeTodo: (id: number) => void;
 }
 
-export const Todos: FC<TodoProps> = ({ todos, completeTodo }) => {
+export const Todos: FC<TodoProps> = ({ todos }) => {
   const [edit, setEdit] = useState<TodoInterface>({
     _id: null,
     title: '',
@@ -32,12 +31,6 @@ export const Todos: FC<TodoProps> = ({ todos, completeTodo }) => {
   }
 
   return todos?.map((todo, index) => (
-    <Todo
-      key={index}
-      todo={todo}
-      completeTodo={completeTodo}
-      deleteTodo={deleteTodo}
-      setEdit={setEdit}
-    />
+    <Todo key={index} todo={todo} deleteTodo={deleteTodo} setEdit={setEdit} />
   ));
 };

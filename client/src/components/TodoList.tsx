@@ -22,21 +22,11 @@ export const TodoList = () => {
     fetchTodos();
   }, []);
 
-  const completeTodo = (id: number) => {
-    let updatedTodos = todos.map((todo) => {
-      if (todo._id === id) {
-        todo.isCompleted = !todo.isCompleted;
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
-
   return (
     <div>
       <h1>What&apos;s the Plan for Today?</h1>
       <TodoForm />
-      <Todos todos={todos} completeTodo={completeTodo} />
+      <Todos todos={todos} />
     </div>
   );
 };
