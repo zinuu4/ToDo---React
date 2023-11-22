@@ -1,16 +1,20 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import axios from 'axios';
+
+import { Todo as TodoInterface } from '@/shared/types';
 
 import { TodoForm } from './TodoForm';
 import { Todos } from './Todos';
-import { Todo as TodoInterface } from '@/shared/types/todo';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
-export const TodoList = () => {
+interface TodoListProps {
+  dictionary: any;
+}
+
+export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
-
-  console.log(todos);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -24,7 +28,8 @@ export const TodoList = () => {
 
   return (
     <div>
-      <h1>What&apos;s the Plan for Today?</h1>
+      <h1>{dictionary.todo.todoListTitle}</h1>
+      <LanguageSwitcher />
       <TodoForm />
       <Todos todos={todos} />
     </div>

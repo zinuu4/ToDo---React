@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import axios from 'axios';
 
-import { Todo as TodoInterface } from '@/shared/types/todo';
+import { Todo as TodoInterface } from '@/shared/types';
 
 interface TodoFormProps {
   edit?: TodoInterface;

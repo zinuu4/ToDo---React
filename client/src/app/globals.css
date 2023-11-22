@@ -12,6 +12,15 @@ body {
       rgba(100, 115, 255, 1) 100%);
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style-type: none;
+}
+
 .todo-app {
   display: flex;
   flex-direction: column;

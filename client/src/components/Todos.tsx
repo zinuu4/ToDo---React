@@ -4,7 +4,7 @@ import React, { useState, FC } from 'react';
 import axios from 'axios';
 
 import { TodoForm } from './TodoForm';
-import { Todo as TodoInterface } from '@/shared/types/todo';
+import { Todo as TodoInterface } from '@/shared/types';
 import { Todo } from './Todo';
 
 interface TodoProps {
