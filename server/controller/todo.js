@@ -30,6 +30,22 @@ exports.updateTodo = async (req, res) => {
   }
 };
 
+exports.completeTodo = async (req, res) => {
+  try {
+    const { id, prevIsCompleted } = req.body;
+    await Todo.findByIdAndUpdate(
+      id,
+      { $set: { isCompleted: !prevIsCompleted } },
+      {
+        new: true,
+      },
+    );
+    return res.status(200).json('Todo completed');
+  } catch (e) {
+    res.status(500).json(e.message);
+  }
+};
+
 exports.deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
