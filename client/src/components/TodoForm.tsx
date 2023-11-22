@@ -11,12 +11,14 @@ import React, {
 } from 'react';
 import axios from 'axios';
 
+import { Todo as TodoInterface } from '@/shared/types/todo';
+
 interface TodoFormProps {
-  edit?: { id: number | null; value: string };
+  edit?: TodoInterface;
 }
 
 export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
-  const [input, setInput] = useState(edit ? edit.value : '');
+  const [input, setInput] = useState(edit ? edit.title : '');
 
   const inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -33,16 +35,32 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const todoData = {
-      title: input,
-      isCompleted: false,
-    };
+    if (edit) {
+      const todoData = {
+        title: input,
+        isCompleted: edit.isCompleted,
+        _id: edit._id,
+      };
 
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData)
-      .then(() => {
-        window.location.reload();
-      });
+      console.log(todoData);
+
+      await axios
+        .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/update`, todoData)
+        .then(() => {
+          window.location.reload();
+        });
+    } else {
+      const todoData = {
+        title: input,
+        isCompleted: false,
+      };
+
+      await axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData)
+        .then(() => {
+          window.location.reload();
+        });
+    }
 
     setInput('');
   };

@@ -10,13 +10,13 @@ import { Todo } from './Todo';
 interface TodoProps {
   todos: TodoInterface[];
   completeTodo: (id: number) => void;
-  updateTodo: (id: number, value: string) => void;
 }
 
-export const Todos: FC<TodoProps> = ({ todos, completeTodo, updateTodo }) => {
-  const [edit, setEdit] = useState<{ id: number | null; value: string }>({
-    id: null,
-    value: '',
+export const Todos: FC<TodoProps> = ({ todos, completeTodo }) => {
+  const [edit, setEdit] = useState<TodoInterface>({
+    _id: null,
+    title: '',
+    isCompleted: false,
   });
 
   const deleteTodo = async (id: number) => {
@@ -27,7 +27,7 @@ export const Todos: FC<TodoProps> = ({ todos, completeTodo, updateTodo }) => {
       });
   };
 
-  if (edit.id) {
+  if (edit._id) {
     return <TodoForm edit={edit} />;
   }
 
