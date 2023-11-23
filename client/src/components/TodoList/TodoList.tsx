@@ -5,9 +5,11 @@ import axios from 'axios';
 
 import { Todo as TodoInterface } from '@/shared/types';
 
-import { TodoForm } from './TodoForm';
-import { Todos } from './Todos';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { TodoForm } from '../TodoForm';
+import { Todos } from '../Todos';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+
+import styles from './TodoList.module.scss';
 
 interface TodoListProps {
   dictionary: any;
@@ -27,7 +29,7 @@ export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.todoApp}>
       <h1>{dictionary.todo.todoListTitle}</h1>
       <LanguageSwitcher />
       <TodoForm />
