@@ -9,9 +9,12 @@ import React, {
   FormEvent,
   RefObject,
 } from 'react';
+import { clsx } from 'clsx';
 import axios from 'axios';
 
 import { Todo as TodoInterface } from '@/shared/types';
+
+import styles from './TodoForm.module.scss';
 
 interface TodoFormProps {
   edit?: TodoInterface;
@@ -66,18 +69,18 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
   };
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit}>
+    <form className={styles.todoForm} onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder={edit ? 'Update your item' : 'Add a todo'}
         value={input}
-        className={edit ? 'todo-input edit' : 'todo-input'}
+        className={clsx(styles.todoInput, edit && styles.edit)}
         onChange={handleChange}
         ref={inputRef}
       />
       <button
         tabIndex={1}
-        className={edit ? 'todo-button edit' : 'todo-button'}
+        className={clsx(styles.todoButton, edit && styles.edit)}
       >
         {edit ? 'Update' : 'Add todo'}
       </button>

@@ -6,7 +6,7 @@ import { TodoList } from '../../components/TodoList/TodoList';
 export default async function Home({ params }: { params: { lang: Locales } }) {
   const dictionary = await getDictionary(params.lang);
   return (
-    <main className="todo-app">
+    <main>
       <TodoList dictionary={dictionary} />
     </main>
   );
