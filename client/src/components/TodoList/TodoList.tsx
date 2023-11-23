@@ -5,9 +5,9 @@ import axios from 'axios';
 
 import { Todo as TodoInterface } from '@/shared/types';
 
-import { TodoForm } from './TodoForm';
-import { Todos } from './Todos';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { TodoForm } from '../TodoForm';
+import { Todos } from '../Todos';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 interface TodoListProps {
   dictionary: any;
