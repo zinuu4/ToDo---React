@@ -9,11 +9,13 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   return (
-    <header className={clsx(styles.header, 'container')}>
-      <MainMenu />
-      <div className={styles.row}>
-        <LanguageSwitcher />
-        <ProfileButton />
+    <header className={clsx(styles.header)}>
+      <div className={clsx('container', styles.container)}>
+        <MainMenu />
+        <div className={styles.row}>
+          <LanguageSwitcher />
+          <ProfileButton />
+        </div>
       </div>
     </header>
   );
