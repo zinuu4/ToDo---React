@@ -1,11 +1,14 @@
 .header {
+  background: linear-gradient(90deg,
+  rgb(97, 76, 240) 0%,
+  rgb(127, 139, 245) 100%);
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 0;
-  background: linear-gradient(90deg,
-  rgb(97, 76, 240) 0%,
-  rgb(127, 139, 245) 100%);
 }
 
 .row {
