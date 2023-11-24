@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 
 import { Locales } from '@/shared/types';
 import { defaultLocale } from '@/middleware';
-import { Header } from '@/components/Layout/Header/Header';
+import { Header } from '@/components/Layout/Header';
 
 import '../globals.scss';
 
