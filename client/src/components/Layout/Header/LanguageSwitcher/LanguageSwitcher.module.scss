@@ -1,0 +1,30 @@
+.wrapper {
+  position: relative;
+}
+
+.triggerButton {
+  background: linear-gradient(90deg,
+  rgba(20, 159, 255, 1) 0%,
+  rgba(17, 122, 255, 1) 100%);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.languages {
+  position: absolute;
+  margin-top: 10px;
+}
+
+.language {
+  font-size: 12px;
+  display: block;
+  opacity: .7;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &.selected {
+    opacity: 1;
+  }
+}
