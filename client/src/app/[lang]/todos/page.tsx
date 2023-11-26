@@ -1,9 +1,8 @@
 import { getDictionary } from '@/shared/localization/dictionaries';
 import { Locales } from '@/shared/types';
+import { TodoList } from '@/components/TodoList';
 
-import { TodoList } from '../../components/TodoList/TodoList';
-
-export default async function Home({ params }: { params: { lang: Locales } }) {
+export default async function Todos({ params }: { params: { lang: Locales } }) {
   const dictionary = await getDictionary(params.lang);
   return (
     <main>
