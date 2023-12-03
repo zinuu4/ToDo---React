@@ -1,7 +1,13 @@
 export interface Todo {
   _id: number | null;
   title: string;
-  isCompleted?: boolean;
+  isCompleted: boolean;
+  priority: Priority;
 }
+
+export type Priority =
+  | { title: 'High'; value: 1 }
+  | { title: 'Medium'; value: 2 }
+  | { title: 'Low'; value: 3 };
 
 export type Locales = 'en' | 'fr' | 'ro' | 'zh' | 'es';

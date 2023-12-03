@@ -5,14 +5,13 @@ import React, {
   useRef,
   useEffect,
   FC,
-  ChangeEvent,
   FormEvent,
   RefObject,
 } from 'react';
 import { clsx } from 'clsx';
 import axios from 'axios';
 
-import { Todo as TodoInterface } from '@/shared/types';
+import { Priority, Todo as TodoInterface } from '@/shared/types';
 
 import styles from './TodoForm.module.scss';
 
@@ -20,8 +19,24 @@ interface TodoFormProps {
   edit?: TodoInterface;
 }
 
+const priorities: Priority[] = [
+  { title: 'High', value: 1 },
+  { title: 'Medium', value: 2 },
+  { title: 'Low', value: 3 },
+];
+
 export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
-  const [input, setInput] = useState(edit ? edit.title : '');
+  const [title, setTitle] = useState(edit ? edit.title : '');
+  const [priority, setPriority] = useState<Priority>(
+    edit ? (edit.priority as Priority) : priorities[0],
+  );
+
+  const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedPriority = priorities.find((p) => p.title === e.target.value);
+    if (selectedPriority) {
+      setPriority(selectedPriority);
+    }
+  };
 
   const inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -31,18 +46,15 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
     }
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (edit) {
       const todoData = {
-        title: input,
+        title,
         isCompleted: edit.isCompleted,
         _id: edit._id,
+        priority,
       };
 
       console.log(todoData);
@@ -54,8 +66,9 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
         });
     } else {
       const todoData = {
-        title: input,
+        title,
         isCompleted: false,
+        priority,
       };
 
       await axios
@@ -65,7 +78,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
         });
     }
 
-    setInput('');
+    setTitle('');
   };
 
   return (
@@ -73,11 +86,26 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
       <input
         type="text"
         placeholder={edit ? 'Update your item' : 'Add a todo'}
-        value={input}
+        value={title}
         className={clsx(styles.todoInput, edit && styles.edit)}
-        onChange={handleChange}
+        onChange={(e) => setTitle(e.target.value)}
         ref={inputRef}
       />
+      <div className={styles.priorities}>
+        <label htmlFor="priority">Priority:</label>
+        <select
+          id="priority"
+          className={styles.select}
+          onChange={handlePriorityChange}
+          value={priority.title}
+        >
+          {priorities.map(({ title, value }) => (
+            <option key={value} value={title}>
+              {title}
+            </option>
+          ))}
+        </select>
+      </div>
       <button
         tabIndex={1}
         className={clsx(styles.todoButton, edit && styles.edit)}

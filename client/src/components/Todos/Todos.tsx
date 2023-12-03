@@ -3,7 +3,7 @@
 import React, { useState, FC } from 'react';
 import axios from 'axios';
 
-import { Todo as TodoInterface } from '@/shared/types';
+import { Priority, Todo as TodoInterface } from '@/shared/types';
 import { TodoForm } from '../TodoForm';
 import { Todo } from '../Todo';
 
@@ -16,7 +16,10 @@ export const Todos: FC<TodoProps> = ({ todos }) => {
     _id: null,
     title: '',
     isCompleted: false,
+    priority: {} as Priority,
   });
+
+  const sortedTodos = todos.sort((a, b) => a.priority.value - b.priority.value);
 
   const deleteTodo = async (id: number) => {
     await axios
@@ -30,7 +33,7 @@ export const Todos: FC<TodoProps> = ({ todos }) => {
     return <TodoForm edit={edit} />;
   }
 
-  return todos?.map((todo, index) => (
+  return sortedTodos?.map((todo, index) => (
     <Todo key={index} todo={todo} deleteTodo={deleteTodo} setEdit={setEdit} />
   ));
 };
