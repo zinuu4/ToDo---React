@@ -25,9 +25,14 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
         window.location.reload();
       });
   };
+
   return (
     <div
-      className={clsx(styles.todoRow, todo.isCompleted && styles.complete)}
+      className={clsx(
+        styles.todoRow,
+        todo.isCompleted && styles.complete,
+        styles[todo.priority.title.toLowerCase()],
+      )}
       key={todo._id}
     >
       <div key={todo._id} onClick={() => completeTodo()}>
@@ -50,6 +55,7 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
               _id: todo._id,
               title: todo.title,
               isCompleted: todo.isCompleted,
+              priority: todo.priority,
             })
           }
           className={styles.editIcon}
@@ -60,6 +66,7 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
                 _id: todo._id,
                 title: todo.title,
                 isCompleted: todo.isCompleted,
+                priority: todo.priority,
               });
             }
           }}
