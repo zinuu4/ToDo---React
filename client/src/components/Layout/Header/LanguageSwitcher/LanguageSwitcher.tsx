@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import clsx from 'clsx';
 
+import { Button } from '@/shared/ui';
+
 import { languageOptions } from './config';
 
 import styles from './LanguageSwitcher.module.scss';
@@ -35,12 +37,11 @@ export const LanguageSwitcher = () => {
 
   return (
     <div className={styles.wrapper}>
-      <button
-        className={clsx('btn-reset', styles.triggerButton)}
+      <Button
         onClick={() => setIsLanguageOptionsOpened((prev) => !prev)}
-      >
-        {selectedLocaleFullInfo?.nativeLanguageTitle}
-      </button>
+        text={selectedLocaleFullInfo?.nativeLanguageTitle ?? ''}
+        backgroundColor="secondary"
+      />
       {isLanguageOptionsOpened && (
         <div className={styles.languages}>
           {languageOptions.map(

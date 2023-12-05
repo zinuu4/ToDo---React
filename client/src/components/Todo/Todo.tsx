@@ -2,9 +2,9 @@ import React, { Dispatch, FC, KeyboardEvent, SetStateAction } from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 import { clsx } from 'clsx';
-import axios from 'axios';
 
 import { Todo as TodoInterface } from '@/shared/types';
+import { completeTodo } from '@/shared/api';
 
 import styles from './Todo.module.scss';
 
@@ -15,17 +15,6 @@ interface TodoProps {
 }
 
 export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
-  const completeTodo = async () => {
-    await axios
-      .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/complete`, {
-        id: todo._id,
-        prevIsCompleted: todo.isCompleted,
-      })
-      .then(() => {
-        window.location.reload();
-      });
-  };
-
   return (
     <div
       className={clsx(
@@ -35,7 +24,7 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
       )}
       key={todo._id}
     >
-      <div key={todo._id} onClick={() => completeTodo()}>
+      <div key={todo._id} onClick={() => completeTodo(todo)}>
         {todo.title}
       </div>
       <div className={styles.icons}>

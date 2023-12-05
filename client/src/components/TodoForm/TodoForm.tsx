@@ -9,21 +9,17 @@ import React, {
   RefObject,
 } from 'react';
 import { clsx } from 'clsx';
-import axios from 'axios';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
+import { priorities } from '@/shared/consts';
+import { Button } from '@/shared/ui';
+import { addTodo, updateTodo } from '@/shared/api';
 
 import styles from './TodoForm.module.scss';
 
 interface TodoFormProps {
   edit?: TodoInterface;
 }
-
-const priorities: Priority[] = [
-  { title: 'High', value: 1 },
-  { title: 'Medium', value: 2 },
-  { title: 'Low', value: 3 },
-];
 
 export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
   const [title, setTitle] = useState(edit ? edit.title : '');
@@ -57,13 +53,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
         priority,
       };
 
-      console.log(todoData);
-
-      await axios
-        .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/update`, todoData)
-        .then(() => {
-          window.location.reload();
-        });
+      updateTodo(todoData);
     } else {
       const todoData = {
         title,
@@ -71,11 +61,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
         priority,
       };
 
-      await axios
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData)
-        .then(() => {
-          window.location.reload();
-        });
+      addTodo(todoData);
     }
 
     setTitle('');
@@ -106,12 +92,12 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
           ))}
         </select>
       </div>
-      <button
-        tabIndex={1}
-        className={clsx(styles.todoButton, edit && styles.edit)}
-      >
-        {edit ? 'Update' : 'Add todo'}
-      </button>
+      <Button
+        text={edit ? 'Update' : 'Add todo'}
+        backgroundColor={edit ? 'secondary' : 'primary'}
+        className={styles.todoButton}
+        size="medium"
+      />
     </form>
   );
 };

@@ -1,0 +1,27 @@
+:root {
+  // base
+  --content-width: 1240px;
+  --container-offset: 15px;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+  --font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+  'Lucida Sans', Arial, sans-serif;
+
+  // colors
+  --background: #000;
+  --surface: #fff;
+  --primary: linear-gradient(90deg, rgb(93, 12, 255) 0%, rgb(155, 0, 250) 100%);
+  --secondary: linear-gradient(90deg, rgb(20, 159, 255) 0%, rgb(17, 122, 255) 100%);
+  --red: rgb(254, 80, 74);
+  --yellow: rgb(251, 184, 0);
+  --green: rgb(36, 213, 36);
+  --dark-blue: #161a2b;
+  --light-grey: #e2e2e2;
+
+  // font-sizes
+  --font-size: 16px;
+
+  // borders
+  --rounded-s: 4px;
+  --rounded-m: 6px;
+  --rounded-l: 8px;
+}

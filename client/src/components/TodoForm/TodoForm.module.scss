@@ -4,12 +4,12 @@
 
 .todoInput {
   padding: 14px 32px 14px 16px;
-  border-radius: 4px 0 0 4px;
+  border-radius: var(--rounded-s);
   border: 2px solid #5d0cff;
   outline: none;
   width: 320px;
   background: transparent;
-  color: #fff;
+  color: var(--surface);
 
   &.edit {
     border: 2px solid #149fff;
@@ -17,7 +17,7 @@
 }
 
 .todoInput::placeholder {
-  color: #e2e2e2;
+  color: var(--light-grey);
 }
 
 .priorities {
@@ -29,28 +29,11 @@
 }
 
 .select {
-  background-color: #f8f8fb;
+  background-color: var(--surface);
   border-radius: 4px;
   padding: 10px;
 }
 
 .todoButton {
   margin-top: 10px;
-  padding: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  background: linear-gradient(90deg,
-      rgba(93, 12, 255, 1) 0%,
-      rgba(155, 0, 250, 1) 100%);
-  color: #fff;
-  text-transform: capitalize;
-
-  &.edit {
-    background: linear-gradient(90deg,
-        rgba(20, 159, 255, 1) 0%,
-        rgba(17, 122, 255, 1) 100%);
-    padding: 16px 22px;
-  }
 }
