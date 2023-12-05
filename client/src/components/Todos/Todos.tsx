@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, FC } from 'react';
-import axios from 'axios';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
+import { deleteTodo } from '@/shared/api';
+
 import { TodoForm } from '../TodoForm';
 import { Todo } from '../Todo';
 
@@ -20,14 +21,6 @@ export const Todos: FC<TodoProps> = ({ todos }) => {
   });
 
   const sortedTodos = todos.sort((a, b) => a.priority.value - b.priority.value);
-
-  const deleteTodo = async (id: number) => {
-    await axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/delete/${id}`)
-      .then(() => {
-        window.location.reload();
-      });
-  };
 
   if (edit._id) {
     return <TodoForm edit={edit} />;

@@ -1,9 +1,10 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import axios from 'axios';
 
 import { Todo as TodoInterface } from '@/shared/types';
+import { Title } from '@/shared/ui';
+import { fetchTodos } from '@/shared/api';
 
 import { TodoForm } from '../TodoForm';
 import { Todos } from '../Todos';
@@ -18,18 +19,12 @@ export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
 
   useEffect(() => {
-    const fetchTodos = async () => {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/todo/todos`,
-      );
-      setTodos(response.data);
-    };
-    fetchTodos();
+    fetchTodos(setTodos);
   }, []);
 
   return (
     <div className={styles.todoApp}>
-      <h1>{dictionary.todo.todoListTitle}</h1>
+      <Title text={dictionary.todo.todoListTitle} className={styles.title} />
       <TodoForm />
       <Todos todos={todos} />
     </div>

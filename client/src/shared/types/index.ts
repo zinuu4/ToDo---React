@@ -1,13 +1,10 @@
-export interface Todo {
-  _id: number | null;
-  title: string;
-  isCompleted: boolean;
-  priority: Priority;
-}
+import React from 'react';
 
-export type Priority =
-  | { title: 'High'; value: 1 }
-  | { title: 'Medium'; value: 2 }
-  | { title: 'Low'; value: 3 };
+export type ReactTagProps<
+  T extends
+    | keyof React.JSX.IntrinsicElements
+    | React.JSXElementConstructor<any>,
+> = React.ComponentProps<T>;
 
-export type Locales = 'en' | 'fr' | 'ro' | 'zh' | 'es';
+export * from './todo';
+export * from './intl';

@@ -1,0 +1,20 @@
+.button {
+  color: var(--surface);
+  border-radius: var(--rounded-m);
+
+  &.small {
+    padding: 11px 13px;
+  }
+
+  &.medium {
+    padding: 15px 17px;
+  }
+
+  &.primary {
+    background: var(--primary);
+  }
+
+  &.secondary {
+    background: var(--secondary);
+  }
+}

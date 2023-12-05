@@ -5,7 +5,7 @@ import { Locales } from '@/shared/types';
 import { defaultLocale } from '@/middleware';
 import { Header } from '@/components/Layout/Header';
 
-import '../globals.scss';
+import '../styles/globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 

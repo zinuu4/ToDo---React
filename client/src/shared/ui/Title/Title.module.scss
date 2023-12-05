@@ -1,0 +1,19 @@
+.title {
+  color: var(--surface);
+
+  &.small {
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  &.medium {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 29px;
+  }
+
+  &.large {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}

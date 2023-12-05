@@ -3,21 +3,21 @@
   justify-content: space-between;
   align-items: center;
   margin: 4px auto;
-  color: #fff;
+  color: var(--surface);
   padding: 16px;
-  border-radius: 5px;
+  border-radius: var(--rounded-m);
   width: 90%;
 
   &.high {
-    background-color: rgb(223, 72, 72);
+    background: var(--red);
   }
 
   &.medium {
-    background-color: rgb(237, 171, 50);
+    background: var(--yellow);
   }
 
   &.low {
-    background-color: rgb(6, 181, 6);
+    background: var(--green);
   }
 
   &.complete {
@@ -35,9 +35,9 @@
 
 .deleteIcon {
   margin-right: 5px;
-  color: #fff;
+  color: var(--surface);
 }
 
 .editIcon {
-  color: #fff;
+  color: var(--surface);
 }

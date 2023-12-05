@@ -1,0 +1,47 @@
+@import "./variables.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: var(--font-size);
+  color: var(--surface);
+  background: var(--background);
+  font-family: var(--font-family);
+}
+
+a {
+  text-decoration: none;
+  color: var(--surface);
+}
+
+ul {
+  list-style-type: none;
+}
+
+select {
+  border: none;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  padding-left: var(--container-offset);
+  padding-right: var(--container-offset);
+  max-width: var(--container-width);
+}
+
+.btn-reset {
+  border: none;
+  font-family: inherit;
+  padding: 0;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
