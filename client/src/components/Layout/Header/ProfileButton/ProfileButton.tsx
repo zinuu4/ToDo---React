@@ -6,7 +6,7 @@ import { CiLogin } from 'react-icons/ci';
 import Link from 'next/link';
 
 import { Pages, routes } from '@/shared/routes';
-import { useGetCurrentLocale } from '@/shared/utils/useGetCurrentLocale';
+import { useGetCurrentLocale } from '@/shared/utils';
 
 import styles from './ProfileButton.module.scss';
 

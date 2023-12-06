@@ -12,7 +12,7 @@ import { clsx } from 'clsx';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
 import { priorities } from '@/shared/consts';
-import { Button } from '@/shared/ui';
+import { Button, Input } from '@/shared/ui';
 import { addTodo, updateTodo } from '@/shared/api';
 
 import styles from './TodoForm.module.scss';
@@ -69,11 +69,11 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
 
   return (
     <form className={styles.todoForm} onSubmit={handleSubmit}>
-      <input
+      <Input
         type="text"
         placeholder={edit ? 'Update your item' : 'Add a todo'}
         value={title}
-        className={clsx(styles.todoInput, edit && styles.edit)}
+        borderColor={edit ? 'secondary' : 'primary'}
         onChange={(e) => setTitle(e.target.value)}
         ref={inputRef}
       />

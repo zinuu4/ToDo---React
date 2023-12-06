@@ -2,24 +2,6 @@
   margin-bottom: 32px;
 }
 
-.todoInput {
-  padding: 14px 32px 14px 16px;
-  border-radius: var(--rounded-s);
-  border: 2px solid #5d0cff;
-  outline: none;
-  width: 320px;
-  background: transparent;
-  color: var(--surface);
-
-  &.edit {
-    border: 2px solid #149fff;
-  }
-}
-
-.todoInput::placeholder {
-  color: var(--light-grey);
-}
-
 .priorities {
   margin-top: 10px;
   display: flex;
