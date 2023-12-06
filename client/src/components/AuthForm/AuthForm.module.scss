@@ -1,0 +1,31 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 200px auto;
+}
+
+.title {
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton {
+  margin-top: 12px;
+}
+
+.linkSection {
+  margin-top: 15px;
+}
+
+.link {
+  opacity: .8;
+  text-decoration: underline;
+  margin-left: 10px;
+}

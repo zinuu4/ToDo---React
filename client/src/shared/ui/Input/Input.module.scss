@@ -1,0 +1,18 @@
+.input {
+  padding: 14px 32px 14px 16px;
+  border-radius: var(--rounded-s);
+  width: 320px;
+  color: var(--surface);
+
+  &.primary {
+    border: 2px solid #5d0cff;
+  }
+
+  &.secondary {
+    border: 2px solid #149fff;
+  }
+}
+
+.input::placeholder {
+  color: var(--light-grey);
+}

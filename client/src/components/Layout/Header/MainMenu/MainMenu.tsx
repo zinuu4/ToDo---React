@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 
 import { Pages, routes } from '@/shared/routes';
-import { useGetCurrentLocale } from '@/shared/utils/useGetCurrentLocale';
+import { useGetCurrentLocale } from '@/shared/utils';
 
 import styles from './MainMenu.module.scss';
 
