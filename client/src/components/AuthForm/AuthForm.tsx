@@ -1,6 +1,7 @@
 'use client';
 
 import React, { FC, FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { Button, Input } from '@/shared/ui';
@@ -18,6 +19,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const router = useRouter();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -25,6 +28,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       registration({ email, password });
     }
     login({ email, password });
+
+    router.push(routes.todos.path);
   };
 
   return (
