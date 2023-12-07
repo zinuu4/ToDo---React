@@ -1,5 +1,8 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { FC } from 'react';
+import Link from 'next/link';
+
+import { LayoutVariant } from '@/shared/types';
 
 import { MainMenu } from './MainMenu';
 import { ProfileButton } from './ProfileButton';
@@ -7,14 +10,23 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 
 import styles from './Header.module.scss';
 
-export const Header = () => {
+interface HeaderProps {
+  layout: LayoutVariant;
+}
+
+export const Header: FC<HeaderProps> = ({ layout }) => {
   return (
     <header className={clsx(styles.header)}>
       <div className={clsx('container', styles.container)}>
-        <MainMenu />
-        <div className={styles.row}>
+        {layout === 'app' && <MainMenu />}
+        <div className={clsx(styles.row, layout === 'auth' && styles.auth)}>
+          {layout === 'auth' && (
+            <Link href="/" className={styles.homeLink}>
+              AchievoMate
+            </Link>
+          )}
           <LanguageSwitcher />
-          <ProfileButton />
+          {layout === 'app' && <ProfileButton />}
         </div>
       </div>
     </header>
