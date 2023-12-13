@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 
 import { LayoutVariant } from '@/shared/types';
+import { routes } from '@/shared/routes';
 
 import { MainMenu } from './MainMenu';
 import { ProfileButton } from './ProfileButton';
@@ -19,10 +20,15 @@ export const Header: FC<HeaderProps> = ({ layout }) => {
     <header className={clsx(styles.header)}>
       <div className={clsx('container', styles.container)}>
         {layout === 'app' && <MainMenu />}
-        <div className={clsx(styles.row, layout === 'auth' && styles.auth)}>
-          {layout === 'auth' && (
-            <Link href="/" className={styles.homeLink}>
-              AchievoMate
+        <div
+          className={clsx(
+            styles.row,
+            (layout === 'auth' || layout === 'landing') && styles.spaceBetween,
+          )}
+        >
+          {(layout === 'auth' || layout === 'landing') && (
+            <Link href={routes.landing.path} className={styles.homeLink}>
+              {routes.landing.title}
             </Link>
           )}
           <LanguageSwitcher />

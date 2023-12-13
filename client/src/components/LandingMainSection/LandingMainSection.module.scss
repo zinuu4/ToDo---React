@@ -1,0 +1,22 @@
+.container {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-mega);
+  text-align: center;
+}
+
+.text {
+  font-size: var(--font-size-l);
+  margin-top: 30px;
+}
+
+.signUpButton {
+  display: inline-block;
+  margin-top: 30px;
+}

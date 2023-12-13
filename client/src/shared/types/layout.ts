@@ -1,1 +1,1 @@
-export type LayoutVariant = 'auth' | 'app';
+export type LayoutVariant = 'auth' | 'app' | 'landing';
