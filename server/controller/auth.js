@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
         .json({ message: `Password ${password} is incorrect` });
     }
 
-    return res.json(user?.email);
+    return res.json(user.email);
   } catch (e) {
     res.status(500).json(e.message);
   }

@@ -7,9 +7,12 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
+    "eslint": "^8.55.0",
     "nodemon": "^3.0.1"
   },
   "dependencies": {
