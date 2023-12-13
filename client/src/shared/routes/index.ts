@@ -1,4 +1,4 @@
-export type Pages = 'todos' | 'profile' | 'login' | 'registration';
+export type Pages = 'landing' | 'todos' | 'profile' | 'login' | 'registration';
 
 type Page = {
   title: string;
@@ -8,6 +8,10 @@ type Page = {
 type Routes = Record<Pages, Page>;
 
 export const routes: Routes = {
+  landing: {
+    title: 'AchievoMate',
+    path: '/',
+  },
   todos: {
     title: 'Todos',
     path: '/todos',

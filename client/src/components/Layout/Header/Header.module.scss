@@ -17,7 +17,7 @@
   align-items: center;
   gap: 20px;
 
-  &.auth {
+  &.spaceBetween {
     width: 100%;
     justify-content: space-between;
   }
@@ -26,4 +26,12 @@
 .homeLink {
   font-size: 26px;
   font-weight: 700;
+}
+
+.registrationLink {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 14px;
+  background: var(--secondary);
+  border-radius: var(--rounded-m);
 }
