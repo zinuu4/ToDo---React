@@ -1,5 +1,29 @@
 {
   "todo": {
-    "todoListTitle": "What's the Plan for Today?"
+    "todoListTitle": "What's the Plan for Today?",
+    "addTodo": "Add todo",
+    "updateTodo": "Update your todo",
+    "priority": "Priority",
+    "highPriority": "High",
+    "mediumPriority": "Medium",
+    "lowPriority": "Low"
+  },
+  "buttons": {
+    "submit": "Submit",
+    "signOut": "Sign Out",
+    "update": "Update"
+  },
+  "landing": {
+    "mainTitle": "Organize your daily activities, set priorities, and track progress effortlessly",
+    "mainSubtitle": "Stay organized and boost productivity with",
+    "getAchievoMate": "Get AchievoMate free"
+  },
+  "auth": {
+    "registrationTitle": "Registration",
+    "loginTitle": "Login",
+    "emailPlaceholder": "Your email",
+    "passwordPlaceholder": "Your password",
+    "dontHaveAnAccountQuestion": "Don't have an account yet?",
+    "alreadyHaveAnAccountQuestion": "Already have an account?"
   }
 }

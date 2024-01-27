@@ -25,8 +25,8 @@ export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
   return (
     <div className={styles.todoApp}>
       <Title text={dictionary.todo.todoListTitle} className={styles.title} />
-      <TodoForm />
-      <Todos todos={todos} />
+      <TodoForm dictionary={dictionary} />
+      <Todos todos={todos} dictionary={dictionary} />
     </div>
   );
 };

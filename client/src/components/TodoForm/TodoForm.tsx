@@ -8,7 +8,6 @@ import React, {
   FormEvent,
   RefObject,
 } from 'react';
-import { clsx } from 'clsx';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
 import { priorities } from '@/shared/consts';
@@ -19,9 +18,10 @@ import styles from './TodoForm.module.scss';
 
 interface TodoFormProps {
   edit?: TodoInterface;
+  dictionary: any;
 }
 
-export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
+export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
   const [title, setTitle] = useState(edit ? edit.title : '');
   const [priority, setPriority] = useState<Priority>(
     edit ? (edit.priority as Priority) : priorities[0],
@@ -71,14 +71,16 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
     <form className={styles.todoForm} onSubmit={handleSubmit}>
       <Input
         type="text"
-        placeholder={edit ? 'Update your item' : 'Add a todo'}
+        placeholder={
+          edit ? dictionary.todo.updateTodo : dictionary.todo.addTodo
+        }
         value={title}
         borderColor={edit ? 'secondary' : 'primary'}
         onChange={(e) => setTitle(e.target.value)}
         ref={inputRef}
       />
       <div className={styles.priorities}>
-        <label htmlFor="priority">Priority:</label>
+        <label htmlFor="priority">{dictionary.todo.priority}:</label>
         <select
           id="priority"
           className={styles.select}
@@ -93,7 +95,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit }) => {
         </select>
       </div>
       <Button
-        text={edit ? 'Update' : 'Add todo'}
+        text={edit ? dictionary.buttons.update : dictionary.todo.addTodo}
         backgroundColor={edit ? 'secondary' : 'primary'}
         className={styles.todoButton}
         size="medium"
