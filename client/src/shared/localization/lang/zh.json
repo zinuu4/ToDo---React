@@ -1,5 +1,29 @@
 {
   "todo": {
-    "todoListTitle": "今天有什么计划?"
+    "todoListTitle": "今天有什么计划？",
+    "addTodo": "添加任务",
+    "updateTodo": "更新您的待办事项",
+    "priority": "优先级",
+    "highPriority": "高",
+    "mediumPriority": "中",
+    "lowPriority": "低"
+  },
+  "buttons": {
+    "submit": "提交",
+    "signOut": "登出",
+    "update": "更新"
+  },
+  "landing": {
+    "mainTitle": "轻松组织您的日常活动，设定优先级，并追踪进展",
+    "mainSubtitle": "保持有序，提高工作效率，使用",
+    "getAchievoMate": "免费获取 AchievoMate"
+  },
+  "auth": {
+    "registrationTitle": "注册",
+    "loginTitle": "登录",
+    "emailPlaceholder": "您的电子邮件",
+    "passwordPlaceholder": "您的密码",
+    "dontHaveAnAccountQuestion": "还没有账户？",
+    "alreadyHaveAnAccountQuestion": "已经有账户了？"
   }
 }

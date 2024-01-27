@@ -1,5 +1,29 @@
 {
   "todo": {
-    "todoListTitle": "Care este planul pentru azi?"
+    "todoListTitle": "Care este planul pentru azi?",
+    "addTodo": "Adaugă sarcină",
+    "updateTodo": "Actualizați-vă tot",
+    "priority": "Prioritate",
+    "highPriority": "Ridicată",
+    "mediumPriority": "Medie",
+    "lowPriority": "Scăzută"
+  },
+  "buttons": {
+    "submit": "Trimite",
+    "signOut": "Deconectare",
+    "update": "Actualizează"
+  },
+  "landing": {
+    "mainTitle": "Organizează-ți activitățile zilnice, stabilește priorități și urmărește progresul fără efort",
+    "mainSubtitle": "Menține-te organizat și crește productivitatea cu",
+    "getAchievoMate": "Obține AchievoMate gratuit"
+  },
+  "auth": {
+    "registrationTitle": "Înregistrare",
+    "loginTitle": "Autentificare",
+    "emailPlaceholder": "Adresa ta de email",
+    "passwordPlaceholder": "Parola ta",
+    "dontHaveAnAccountQuestion": "Nu ai încă un cont?",
+    "alreadyHaveAnAccountQuestion": "Ai deja un cont?"
   }
 }

@@ -1,5 +1,29 @@
 {
   "todo": {
-    "todoListTitle": "¿Cuál es el plan para hoy?"
+    "todoListTitle": "¿Cuál es el plan para hoy?",
+    "addTodo": "Agregar tarea",
+    "updateTodo": "Actualiza tu tarea",
+    "priority": "Prioridad",
+    "highPriority": "Alta",
+    "mediumPriority": "Media",
+    "lowPriority": "Baja"
+  },
+  "buttons": {
+    "submit": "Enviar",
+    "signOut": "Cerrar sesión",
+    "update": "Actualizar"
+  },
+  "landing": {
+    "mainTitle": "Organiza tus actividades diarias, establece prioridades y realiza un seguimiento del progreso sin esfuerzo",
+    "mainSubtitle": "Mantente organizado y aumenta la productividad con",
+    "getAchievoMate": "Obtén AchievoMate gratis"
+  },
+  "auth": {
+    "registrationTitle": "Registro",
+    "loginTitle": "Inicio de sesión",
+    "emailPlaceholder": "Tu correo electrónico",
+    "passwordPlaceholder": "Tu contraseña",
+    "dontHaveAnAccountQuestion": "¿Todavía no tienes una cuenta?",
+    "alreadyHaveAnAccountQuestion": "¿Ya tienes una cuenta?"
   }
 }

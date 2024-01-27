@@ -1,9 +1,12 @@
+'use client';
+
 import clsx from 'clsx';
 import React, { FC } from 'react';
 import Link from 'next/link';
 
 import { LayoutVariant } from '@/shared/types';
 import { routes } from '@/shared/routes';
+import { useGetCurrentLocale } from '@/shared/utils';
 
 import { MainMenu } from './MainMenu';
 import { ProfileButton } from './ProfileButton';
@@ -16,6 +19,8 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ layout }) => {
+  const currentLocal = useGetCurrentLocale();
+
   return (
     <header className={clsx(styles.header)}>
       <div className={clsx('container', styles.container)}>
@@ -27,7 +32,10 @@ export const Header: FC<HeaderProps> = ({ layout }) => {
           )}
         >
           {(layout === 'auth' || layout === 'landing') && (
-            <Link href={routes.landing.path} className={styles.homeLink}>
+            <Link
+              href={`/${currentLocal}${routes.landing.path}`}
+              className={styles.homeLink}
+            >
               {routes.landing.title}
             </Link>
           )}

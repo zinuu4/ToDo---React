@@ -10,9 +10,10 @@ import { Todo } from '../Todo';
 
 interface TodoProps {
   todos: TodoInterface[];
+  dictionary: any;
 }
 
-export const Todos: FC<TodoProps> = ({ todos }) => {
+export const Todos: FC<TodoProps> = ({ todos, dictionary }) => {
   const [edit, setEdit] = useState<TodoInterface>({
     _id: null,
     title: '',
@@ -23,7 +24,7 @@ export const Todos: FC<TodoProps> = ({ todos }) => {
   const sortedTodos = todos.sort((a, b) => a.priority.value - b.priority.value);
 
   if (edit._id) {
-    return <TodoForm edit={edit} />;
+    return <TodoForm edit={edit} dictionary={dictionary} />;
   }
 
   return sortedTodos?.map((todo, index) => (
