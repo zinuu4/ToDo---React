@@ -13,6 +13,7 @@ import { Priority, Todo as TodoInterface } from '@/shared/types';
 import { priorities } from '@/shared/consts';
 import { Button, Input } from '@/shared/ui';
 import { addTodo, updateTodo } from '@/shared/api';
+import { useLocalStorage } from '@/shared/hooks';
 
 import styles from './TodoForm.module.scss';
 
@@ -59,6 +60,7 @@ export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
         title,
         isCompleted: false,
         priority,
+        userId: useLocalStorage.getItem('userId'),
       };
 
       addTodo(todoData);

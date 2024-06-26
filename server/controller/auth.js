@@ -1,7 +1,14 @@
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
 
+const { secret } = require('../config');
 const { User } = require('../models/user');
+
+const generateAccessToken = (id) => {
+  const payload = { id };
+  return jwt.sign(payload, secret, { expiresIn: '24h' });
+};
 
 exports.registration = async (req, res) => {
   try {
@@ -43,7 +50,9 @@ exports.login = async (req, res) => {
         .json({ message: `Password ${password} is incorrect` });
     }
 
-    return res.json(user.email);
+    const token = generateAccessToken(user._id);
+
+    return res.send({ token });
   } catch (e) {
     res.status(500).json(e.message);
   }

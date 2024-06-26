@@ -3,6 +3,7 @@ export interface Todo {
   title: string;
   isCompleted: boolean;
   priority: Priority;
+  userId?: string;
 }
 
 export type Priority =
