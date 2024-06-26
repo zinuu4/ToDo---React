@@ -2,7 +2,7 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Cookies from 'js-cookie';
 
-import { useLocalStorage } from '../hooks';
+import { useLocalStorage } from '@/shared/hooks';
 
 interface AuthProps {
   email: string;
@@ -40,5 +40,17 @@ export const login = async ({ email, password }: AuthProps) => {
       });
   } catch (error) {
     console.error('Login error:', error);
+  }
+};
+
+export const getUser = async ({ id }: { id: string }) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/getUser`,
+      { id },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error while getting user', error);
   }
 };

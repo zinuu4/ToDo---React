@@ -57,3 +57,13 @@ exports.login = async (req, res) => {
     res.status(500).json(e.message);
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    return res.send({ user });
+  } catch (e) {
+    res.status(500).json(e.message);
+  }
+};
