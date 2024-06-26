@@ -46,11 +46,13 @@ export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
         <div>
           <Input
             value={email}
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder={dictionary.auth.emailPlaceholder}
           />
           <Input
             value={password}
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder={dictionary.auth.passwordPlaceholder}
           />

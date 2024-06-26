@@ -1,8 +1,16 @@
 import axios from 'axios';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import Cookies from 'js-cookie';
+
+import { useLocalStorage } from '../hooks';
 
 interface AuthProps {
   email: string;
   password: string;
+}
+
+interface DecodedToken extends JwtPayload {
+  id: string;
 }
 
 export const registration = async ({ email, password }: AuthProps) => {
@@ -12,9 +20,7 @@ export const registration = async ({ email, password }: AuthProps) => {
         email,
         password,
       })
-      .then(() => {
-        // window.location.reload();
-      });
+      .then(() => {});
   } catch (error) {
     console.error('Registration error:', error);
   }
@@ -27,8 +33,10 @@ export const login = async ({ email, password }: AuthProps) => {
         email,
         password,
       })
-      .then(() => {
-        // window.location.reload();
+      .then(({ data }) => {
+        Cookies.set('token', data.token, { expires: 1 });
+        const decodedToken: DecodedToken = jwtDecode(data.token);
+        useLocalStorage.setItem('userID', decodedToken.id);
       });
   } catch (error) {
     console.error('Login error:', error);
