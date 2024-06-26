@@ -9,3 +9,4 @@ export type ReactTagProps<
 export * from './todo';
 export * from './intl';
 export * from './layout';
+export * from './user';
