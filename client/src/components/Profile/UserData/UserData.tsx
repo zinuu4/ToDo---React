@@ -14,11 +14,13 @@ export const UserData = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    if (userId) {
-      getUser(userId).then((data) => {
+    const fetchUser = async () => {
+      if (userId) {
+        const data = await getUser({ id: userId });
         setUser(data.user);
-      });
-    }
+      }
+    };
+    fetchUser();
   }, [userId]);
 
   if (!user) {

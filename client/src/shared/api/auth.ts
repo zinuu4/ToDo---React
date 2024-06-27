@@ -36,7 +36,7 @@ export const login = async ({ email, password }: AuthProps) => {
       .then(({ data }) => {
         Cookies.set('token', data.token, { expires: 1 });
         const decodedToken: DecodedToken = jwtDecode(data.token);
-        useLocalStorage.setItem('userID', decodedToken.id);
+        useLocalStorage.setItem('userId', decodedToken.id);
       });
   } catch (error) {
     console.error('Login error:', error);
@@ -45,9 +45,11 @@ export const login = async ({ email, password }: AuthProps) => {
 
 export const getUser = async ({ id }: { id: string }) => {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/getUser`,
-      { id },
+      {
+        params: { id },
+      },
     );
     return response.data;
   } catch (error) {

@@ -5,10 +5,12 @@ import { Todo } from '@/shared/types';
 
 export const fetchTodos = async (
   setTodos: Dispatch<SetStateAction<[] | Todo[]>>,
+  userId: string,
 ) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/todo/todos`,
+      { params: { userId } },
     );
     setTodos(response.data);
   } catch (error) {

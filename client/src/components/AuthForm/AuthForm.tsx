@@ -28,11 +28,13 @@ export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
     e.preventDefault();
 
     if (type === 'registration') {
-      registration({ email, password });
+      registration({ email, password }).then(() => {
+        router.push(routes.login.path);
+      });
     }
-    login({ email, password });
-
-    router.push(routes.todos.path);
+    login({ email, password }).then(() => {
+      router.push(routes.todos.path);
+    });
   };
 
   return (
@@ -47,12 +49,14 @@ export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
           <Input
             value={email}
             type="email"
+            required
             onChange={(e) => setEmail(e.target.value)}
             placeholder={dictionary.auth.emailPlaceholder}
           />
           <Input
             value={password}
             type="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
             placeholder={dictionary.auth.passwordPlaceholder}
           />
