@@ -2,7 +2,14 @@ const { Todo } = require('../models/todo');
 
 exports.getTodos = async (req, res) => {
   try {
-    const todos = await Todo.find();
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId is required' });
+    }
+
+    const todos = await Todo.find({ userId });
+
     return res.status(200).json(todos);
   } catch (e) {
     res.status(500).json(e.message);

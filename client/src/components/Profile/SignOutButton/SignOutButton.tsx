@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 import { Button } from '@/shared/ui';
+import { useLocalStorage } from '@/shared/hooks';
 
 interface SignOutButtonProps {
   dictionary: any;
@@ -15,6 +16,7 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ dictionary }) => {
 
   const logout = () => {
     Cookies.remove('token');
+    useLocalStorage.removeItem('userId');
 
     router.refresh();
   };

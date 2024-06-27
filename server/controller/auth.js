@@ -60,8 +60,18 @@ exports.login = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.query;
+
+    if (!id) {
+      return res.status(400).json({ error: 'ID is required' });
+    }
+
     const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     return res.send({ user });
   } catch (e) {
     res.status(500).json(e.message);

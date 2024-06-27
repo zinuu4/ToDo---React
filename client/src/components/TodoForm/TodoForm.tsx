@@ -56,11 +56,13 @@ export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
 
       updateTodo(todoData);
     } else {
+      const userId = useLocalStorage.getItem('userId');
+
       const todoData = {
         title,
         isCompleted: false,
         priority,
-        userId: useLocalStorage.getItem('userId'),
+        userId,
       };
 
       addTodo(todoData);

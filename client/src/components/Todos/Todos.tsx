@@ -27,7 +27,7 @@ export const Todos: FC<TodoProps> = ({ todos, dictionary }) => {
     return <TodoForm edit={edit} dictionary={dictionary} />;
   }
 
-  return sortedTodos?.map((todo, index) => (
+  return sortedTodos.map((todo, index) => (
     <Todo key={index} todo={todo} deleteTodo={deleteTodo} setEdit={setEdit} />
   ));
 };
