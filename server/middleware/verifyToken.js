@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const { secret } = require('../config');
-
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
-    jwt.verify(authHeader, secret, (err) => {
+    jwt.verify(authHeader, process.env.ACCESS_TOKEN_SECRET, (err) => {
       if (err) {
         return res.status(403).json(err.message);
       }

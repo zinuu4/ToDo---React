@@ -6,6 +6,7 @@ import { Profile } from '@/components/Profile';
 import { getDictionary } from '@/shared/localization/dictionaries';
 import { Locales } from '@/shared/types';
 import { routes } from '@/shared/routes';
+import { verifyToken } from '@/shared/utils';
 
 export default async function ProfilePage({
   params,
@@ -13,9 +14,12 @@ export default async function ProfilePage({
   params: { lang: Locales };
 }) {
   const cookieStore = cookies();
-  const token = cookieStore.get('token');
+  const tokenCookie = cookieStore.get('token');
+  const token = tokenCookie?.value;
 
-  if (!token) {
+  const user = verifyToken(token);
+
+  if (!user) {
     redirect(routes.login.path);
   }
 
