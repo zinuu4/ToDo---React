@@ -2,12 +2,13 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
-const { secret } = require('../config');
 const { User } = require('../models/user');
 
 const generateAccessToken = (id) => {
   const payload = { id };
-  return jwt.sign(payload, secret, { expiresIn: '24h' });
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '24h',
+  });
 };
 
 exports.registration = async (req, res) => {

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { Todo } from '@/shared/types';
@@ -10,7 +11,7 @@ export const fetchTodos = async (
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/todo/todos`,
-      { params: { userId } },
+      { params: { userId }, headers: { authorization: Cookies.get('token') } },
     );
     setTodos(response.data);
   } catch (error) {
@@ -21,7 +22,9 @@ export const fetchTodos = async (
 export const addTodo = async (todoData: Partial<Todo>) => {
   try {
     await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/todo/add`, todoData, {
+        headers: { authorization: Cookies.get('token') },
+      })
       .then(() => {
         window.location.reload();
       });
@@ -33,7 +36,9 @@ export const addTodo = async (todoData: Partial<Todo>) => {
 export const updateTodo = async (todoData: Todo) => {
   try {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/update`, todoData)
+      .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/update`, todoData, {
+        headers: { authorization: Cookies.get('token') },
+      })
       .then(() => {
         window.location.reload();
       });
@@ -45,10 +50,14 @@ export const updateTodo = async (todoData: Todo) => {
 export const completeTodo = async (todo: Todo) => {
   try {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_API_URL}/todo/complete`, {
-        id: todo._id,
-        prevIsCompleted: todo.isCompleted,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_API_URL}/todo/complete`,
+        {
+          id: todo._id,
+          prevIsCompleted: todo.isCompleted,
+        },
+        { headers: { authorization: Cookies.get('token') } },
+      )
       .then(() => {
         window.location.reload();
       });
@@ -60,7 +69,9 @@ export const completeTodo = async (todo: Todo) => {
 export const deleteTodo = async (id: number) => {
   try {
     await axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/delete/${id}`)
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/delete/${id}`, {
+        headers: { authorization: Cookies.get('token') },
+      })
       .then(() => {
         window.location.reload();
       });
