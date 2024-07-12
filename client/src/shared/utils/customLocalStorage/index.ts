@@ -1,4 +1,4 @@
-export const useLocalStorage = {
+export const customLocalStorage = {
   setItem: (key: string, value: unknown) => {
     try {
       const serializedValue = JSON.stringify(value);

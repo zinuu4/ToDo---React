@@ -14,18 +14,18 @@ export const routes: Routes = {
   },
   todos: {
     title: 'Todos',
-    path: '/todos',
+    path: '/app/todos',
   },
   profile: {
     title: 'Profile',
-    path: '/profile',
+    path: '/app/profile',
   },
   login: {
     title: 'Login',
-    path: '/login',
+    path: '/auth/login',
   },
   registration: {
     title: 'Registration',
-    path: '/registration',
+    path: '/auth/registration',
   },
 };

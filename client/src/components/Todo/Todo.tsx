@@ -4,17 +4,16 @@ import { TiEdit } from 'react-icons/ti';
 import { clsx } from 'clsx';
 
 import { Todo as TodoInterface } from '@/shared/types';
-import { completeTodo } from '@/shared/api';
+import { TodosApi } from '@/shared/api';
 
 import styles from './Todo.module.scss';
 
 interface TodoProps {
   todo: TodoInterface;
-  deleteTodo: (id: number) => void;
   setEdit: Dispatch<SetStateAction<TodoInterface>>;
 }
 
-export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
+export const Todo: FC<TodoProps> = ({ todo, setEdit }) => {
   return (
     <div
       className={clsx(
@@ -24,17 +23,17 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
       )}
       key={todo._id}
     >
-      <div key={todo._id} onClick={() => completeTodo(todo)}>
+      <div key={todo._id} onClick={() => TodosApi.completeTodo(todo)}>
         {todo.title}
       </div>
       <div className={styles.icons}>
         <RiCloseCircleLine
-          onClick={() => deleteTodo(todo._id!)}
+          onClick={() => TodosApi.deleteTodo(todo._id!)}
           className={styles.deleteIcon}
           tabIndex={1}
-          onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
+          onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
-              deleteTodo(todo._id!);
+              TodosApi.deleteTodo(todo._id!);
             }
           }}
         />
@@ -49,7 +48,7 @@ export const Todo: FC<TodoProps> = ({ todo, deleteTodo, setEdit }) => {
           }
           className={styles.editIcon}
           tabIndex={1}
-          onKeyPress={(event: KeyboardEvent<HTMLInputElement>) => {
+          onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
               setEdit({
                 _id: todo._id,

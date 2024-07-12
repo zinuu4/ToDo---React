@@ -1,12 +1,16 @@
-import jwt from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
 
-export const verifyToken = (token: string | undefined) => {
-  if (!token || !process.env.JWT_SECRET) {
+export const verifyToken = async (token: string | undefined) => {
+  if (!token || !process.env.JWT_ACCESS_SECRET) {
     return null;
   }
   try {
-    return jwt.verify(token, process.env.JWT_SECRET);
+    const secret = new TextEncoder().encode(process.env.JWT_ACCESS_SECRET);
+    const { payload } = await jwtVerify(token, secret);
+    return payload;
   } catch (err) {
+    console.log(err);
+
     return null;
   }
 };

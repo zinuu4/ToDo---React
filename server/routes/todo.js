@@ -7,7 +7,7 @@ const {
   completeTodo,
   deleteTodo,
 } = require('../controller/todo');
-const { verifyToken } = require('../middleware/verifyToken');
+const { verifyToken } = require('../middleware/verify-token');
 
 const router = express.Router();
 

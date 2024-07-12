@@ -9,5 +9,6 @@ const dictionaries = {
   es: () => import('./lang/es.json').then((module) => module.default),
 };
 
+// @ts-ignore
 export const getDictionary = async (locale: Locales) =>
   (dictionaries as Record<Locales, () => Promise<any>>)[locale]();

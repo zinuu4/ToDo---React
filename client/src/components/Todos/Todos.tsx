@@ -3,7 +3,6 @@
 import React, { useState, FC } from 'react';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
-import { deleteTodo } from '@/shared/api';
 
 import { TodoForm } from '../TodoForm';
 import { Todo } from '../Todo';
@@ -28,6 +27,6 @@ export const Todos: FC<TodoProps> = ({ todos, dictionary }) => {
   }
 
   return sortedTodos.map((todo, index) => (
-    <Todo key={index} todo={todo} deleteTodo={deleteTodo} setEdit={setEdit} />
+    <Todo key={index} todo={todo} setEdit={setEdit} />
   ));
 };

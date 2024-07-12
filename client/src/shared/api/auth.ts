@@ -1,58 +1,35 @@
-import axios from 'axios';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
-import Cookies from 'js-cookie';
+import { AxiosResponse } from 'axios';
 
-import { useLocalStorage } from '@/shared/hooks';
+import { $api } from './common';
+import { AuthResponse } from '../types';
 
 interface AuthProps {
   email: string;
   password: string;
 }
 
-interface DecodedToken extends JwtPayload {
-  id: string;
+export class AuthApi {
+  static registration = async ({
+    email,
+    password,
+  }: AuthProps): Promise<AxiosResponse<AuthResponse>> => {
+    return await $api.post('/auth/registration', {
+      email,
+      password,
+    });
+  };
+
+  static login = async ({
+    email,
+    password,
+  }: AuthProps): Promise<AxiosResponse<AuthResponse>> => {
+    return await $api.post('/auth/login', {
+      email,
+      password,
+    });
+  };
+
+  static logout = async () => {
+    return await $api.post('/auth/logout');
+  };
 }
-
-export const registration = async ({ email, password }: AuthProps) => {
-  try {
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/registration`, {
-        email,
-        password,
-      })
-      .then(() => {});
-  } catch (error) {
-    console.error('Registration error:', error);
-  }
-};
-
-export const login = async ({ email, password }: AuthProps) => {
-  try {
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        email,
-        password,
-      })
-      .then(({ data }) => {
-        Cookies.set('token', data.token, { expires: 1 });
-        const decodedToken: DecodedToken = jwtDecode(data.token);
-        useLocalStorage.setItem('userId', decodedToken.id);
-      });
-  } catch (error) {
-    console.error('Login error:', error);
-  }
-};
-
-export const getUser = async ({ id }: { id: string }) => {
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/getUser`,
-      {
-        params: { id },
-      },
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error while getting user', error);
-  }
-};
