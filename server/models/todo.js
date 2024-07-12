@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose');
 
 const todoSchema = new Schema({
   title: { type: String, required: true },
@@ -16,4 +14,4 @@ const todoSchema = new Schema({
   },
 });
 
-exports.Todo = mongoose.model('Todo', todoSchema);
+exports.Todo = model('Todo', todoSchema);

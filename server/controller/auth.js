@@ -1,80 +1,82 @@
-const bcrypt = require('bcryptjs');
-const { validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
+const { AuthService } = require('../service/auth-service');
 
-const { User } = require('../models/user');
-
-const generateAccessToken = (id) => {
-  const payload = { id };
-  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '24h',
-  });
-};
-
-exports.registration = async (req, res) => {
+exports.registration = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ message: 'Registration error', errors });
-    }
-
     const { email, password } = req.body;
-    const candidate = await User.findOne({ email });
 
-    if (candidate) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+    const userData = await AuthService.registration(email, password);
+    res.cookie('refreshToken', userData.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+      path: '/',
+    });
+    res.cookie('accessToken', userData.accessToken, {
+      maxAge: 30 * 60 * 1000, // 30 min
+      httpOnly: true,
+      path: '/',
+    });
 
-    const hashPassword = bcrypt.hashSync(password, 6);
-    await User.create({ email, password: hashPassword });
-
-    return res.json({ message: 'User registered' });
+    return res.json(userData);
   } catch (e) {
-    res.status(500).json(e.message);
+    next(e);
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(400).json({ message: `User ${email} doesn't exists` });
-    }
+    const userData = await AuthService.login(email, password);
+    res.cookie('refreshToken', userData.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+      path: '/',
+    });
+    res.cookie('accessToken', userData.accessToken, {
+      maxAge: 30 * 60 * 1000, // 30 min
+      httpOnly: true,
+      path: '/',
+    });
 
-    const validPassword = bcrypt.compareSync(password, user.password);
-
-    if (!validPassword) {
-      return res
-        .status(400)
-        .json({ message: `Password ${password} is incorrect` });
-    }
-
-    const token = generateAccessToken(user._id);
-
-    return res.send({ token });
+    return res.json(userData);
   } catch (e) {
-    res.status(500).json(e.message);
+    next(e);
   }
 };
 
-exports.getUser = async (req, res) => {
+exports.logout = async (req, res, next) => {
   try {
-    const { id } = req.query;
+    const { refreshToken } = req.cookies;
 
-    if (!id) {
-      return res.status(400).json({ error: 'ID is required' });
-    }
+    const token = await AuthService.logout(refreshToken);
 
-    const user = await User.findById(id);
+    res.clearCookie('refreshToken');
+    res.clearCookie('accessToken');
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    return res.send({ user });
+    return res.json(token);
   } catch (e) {
-    res.status(500).json(e.message);
+    next(e);
+  }
+};
+
+exports.refresh = async (req, res, next) => {
+  try {
+    const { refreshToken } = req.cookies;
+
+    const userData = await AuthService.refresh(refreshToken);
+    res.cookie('refreshToken', userData.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+      path: '/api/auth/refresh',
+    });
+    res.cookie('accessToken', userData.accessToken, {
+      maxAge: 30 * 60 * 1000, // 30 min
+      httpOnly: true,
+      path: '/',
+    });
+
+    return res.json(userData);
+  } catch (e) {
+    next(e);
   }
 };

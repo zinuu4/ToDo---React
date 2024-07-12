@@ -3,6 +3,8 @@ import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 
 import { Locales } from '@/shared/types';
+import { verifyToken } from '@/shared/utils';
+import { routes } from '@/shared/routes';
 
 export const locales: Locales[] = ['en', 'fr', 'ro', 'zh', 'es'];
 export const defaultLocale = 'en';
@@ -19,8 +21,30 @@ function getLocale(request: Request): string {
   return match(languages, locales, defaultLocale);
 }
 
-export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const locale = getLocale(request);
+  const accessToken = request.cookies.get('accessToken')?.value;
+
+  const userData = await verifyToken(accessToken);
+
+  // prettier-ignore
+  if (
+    (userData && (pathname.includes(routes.login.path) || pathname.includes(routes.registration.path)))
+  ) {
+    return NextResponse.redirect(
+      new URL(`/${locale}${routes.todos.path}`, request.url),
+    );
+  }
+
+  // prettier-ignore
+  if (
+    (!userData && (pathname.includes(routes.todos.path) || pathname.includes(routes.profile.path)))
+  ) {
+    return NextResponse.redirect(
+      new URL(`/${locale}${routes.login.path}`, request.url),
+    );
+  }
 
   // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // // If you have one
@@ -41,8 +65,6 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
     return NextResponse.redirect(

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import { Locales } from '@/shared/types';
 import { defaultLocale } from '@/middleware';
+import { Providers } from '../providers';
 
 import '../styles/globals.scss';
 
@@ -22,7 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params?.lang ?? defaultLocale}>
-      <body className={inter.className}>{children}</body>
+      <Providers>
+        <body className={inter.className}>{children}</body>
+      </Providers>
     </html>
   );
 }

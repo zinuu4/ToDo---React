@@ -1,11 +1,12 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { Todo as TodoInterface } from '@/shared/types';
 import { Title } from '@/shared/ui';
-import { fetchTodos } from '@/shared/api';
-import { useLocalStorage } from '@/shared/hooks';
+import { TodosApi } from '@/shared/api';
+import { useStore } from '@/app/providers/store';
 
 import { TodoForm } from '../TodoForm';
 import { Todos } from '../Todos';
@@ -16,13 +17,16 @@ interface TodoListProps {
   dictionary: any;
 }
 
-export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
+export const TodoList: FC<TodoListProps> = observer(({ dictionary }) => {
   const [todos, setTodos] = useState<TodoInterface[] | []>([]);
-  const userId = useLocalStorage.getItem('userId');
+  const { userStore } = useStore();
+  const { user } = userStore;
 
   useEffect(() => {
-    fetchTodos(setTodos, userId);
-  }, [userId]);
+    if (user.id) {
+      TodosApi.fetchTodos(setTodos, user.id);
+    }
+  }, [user.id]);
 
   return (
     <div className={styles.todoApp}>
@@ -35,4 +39,4 @@ export const TodoList: FC<TodoListProps> = ({ dictionary }) => {
       )}
     </div>
   );
-};
+});

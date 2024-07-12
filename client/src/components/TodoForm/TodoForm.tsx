@@ -8,12 +8,13 @@ import React, {
   FormEvent,
   RefObject,
 } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { Priority, Todo as TodoInterface } from '@/shared/types';
 import { priorities } from '@/shared/consts';
 import { Button, Input } from '@/shared/ui';
-import { addTodo, updateTodo } from '@/shared/api';
-import { useLocalStorage } from '@/shared/hooks';
+import { TodosApi } from '@/shared/api';
+import { useStore } from '@/app/providers/store';
 
 import styles from './TodoForm.module.scss';
 
@@ -22,11 +23,14 @@ interface TodoFormProps {
   dictionary: any;
 }
 
-export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
+export const TodoForm: FC<TodoFormProps> = observer(({ edit, dictionary }) => {
   const [title, setTitle] = useState(edit ? edit.title : '');
   const [priority, setPriority] = useState<Priority>(
     edit ? (edit.priority as Priority) : priorities[0],
   );
+
+  const { userStore } = useStore();
+  const { user } = userStore;
 
   const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedPriority = priorities.find((p) => p.title === e.target.value);
@@ -54,18 +58,16 @@ export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
         priority,
       };
 
-      updateTodo(todoData);
+      TodosApi.updateTodo(todoData);
     } else {
-      const userId = useLocalStorage.getItem('userId');
-
       const todoData = {
         title,
         isCompleted: false,
         priority,
-        userId,
+        userId: user.id,
       };
 
-      addTodo(todoData);
+      TodosApi.addTodo(todoData);
     }
 
     setTitle('');
@@ -106,4 +108,4 @@ export const TodoForm: FC<TodoFormProps> = ({ edit, dictionary }) => {
       />
     </form>
   );
-};
+});

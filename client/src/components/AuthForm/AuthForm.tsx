@@ -3,10 +3,11 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { observer } from 'mobx-react-lite';
 
+import { useStore } from '@/app/providers/store';
 import { Button, Input } from '@/shared/ui';
 import { routes } from '@/shared/routes';
-import { registration, login } from '@/shared/api';
 import { useGetCurrentLocale } from '@/shared/utils';
 
 import styles from './AuthForm.module.scss';
@@ -16,9 +17,10 @@ interface AuthFormProps {
   dictionary: any;
 }
 
-export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
+export const AuthForm: FC<AuthFormProps> = observer(({ type, dictionary }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { userStore } = useStore();
 
   const currentLocale = useGetCurrentLocale();
 
@@ -28,13 +30,15 @@ export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
     e.preventDefault();
 
     if (type === 'registration') {
-      registration({ email, password }).then(() => {
-        router.push(routes.login.path);
+      userStore.registration({ email, password }).then(() => {
+        router.push(routes.todos.path);
       });
     }
-    login({ email, password }).then(() => {
-      router.push(routes.todos.path);
-    });
+    if (type === 'login') {
+      userStore.login({ email, password }).then(() => {
+        router.push(routes.todos.path);
+      });
+    }
   };
 
   return (
@@ -85,4 +89,4 @@ export const AuthForm: FC<AuthFormProps> = ({ type, dictionary }) => {
       </div>
     </section>
   );
-};
+});
