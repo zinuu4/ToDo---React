@@ -67,7 +67,7 @@ exports.refresh = async (req, res, next) => {
     res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       httpOnly: true,
-      path: '/api/auth/refresh',
+      path: '/',
     });
     res.cookie('accessToken', userData.accessToken, {
       maxAge: 30 * 60 * 1000, // 30 min

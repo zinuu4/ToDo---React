@@ -4,21 +4,18 @@ const {
   getTodos,
   addTodo,
   updateTodo,
-  completeTodo,
   deleteTodo,
-} = require('../controller/todo');
+} = require('../controller/todo-controller');
 const { verifyToken } = require('../middleware/verify-token');
 
 const router = express.Router();
 
-router.get('/todos', verifyToken, getTodos);
+router.get('/todos/:userId', verifyToken, getTodos);
 
-router.post('/add', verifyToken, addTodo);
+router.post('/todos', verifyToken, addTodo);
 
-router.put('/update', verifyToken, updateTodo);
+router.put('/todos', verifyToken, updateTodo);
 
-router.put('/complete', verifyToken, completeTodo);
-
-router.delete('/delete/:id', verifyToken, deleteTodo);
+router.delete('/todos/:id', verifyToken, deleteTodo);
 
 module.exports = router;

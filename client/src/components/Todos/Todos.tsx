@@ -13,17 +13,19 @@ interface TodoProps {
 }
 
 export const Todos: FC<TodoProps> = ({ todos, dictionary }) => {
-  const [edit, setEdit] = useState<TodoInterface>({
+  const [edit, setEdit] = useState<Partial<TodoInterface>>({
     _id: null,
     title: '',
     isCompleted: false,
     priority: {} as Priority,
   });
 
-  const sortedTodos = todos.sort((a, b) => a.priority.value - b.priority.value);
+  const sortedTodos = todos.sort(
+    (a, b) => a.priority?.value - b.priority?.value,
+  );
 
   if (edit._id) {
-    return <TodoForm edit={edit} dictionary={dictionary} />;
+    return <TodoForm edit={edit} setEdit={setEdit} dictionary={dictionary} />;
   }
 
   return sortedTodos.map((todo, index) => (

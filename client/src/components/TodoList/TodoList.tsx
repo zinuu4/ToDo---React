@@ -1,12 +1,11 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Todo as TodoInterface } from '@/shared/types';
 import { Title } from '@/shared/ui';
-import { TodosApi } from '@/shared/api';
 import { useStore } from '@/app/providers/store';
+import { useTodos } from '@/shared/api';
 
 import { TodoForm } from '../TodoForm';
 import { Todos } from '../Todos';
@@ -18,24 +17,30 @@ interface TodoListProps {
 }
 
 export const TodoList: FC<TodoListProps> = observer(({ dictionary }) => {
-  const [todos, setTodos] = useState<TodoInterface[] | []>([]);
   const { userStore } = useStore();
   const { user } = userStore;
+  const { todos, isLoading, isError } = useTodos(user.id);
 
-  useEffect(() => {
-    if (user.id) {
-      TodosApi.fetchTodos(setTodos, user.id);
-    }
-  }, [user.id]);
+  if (isLoading) {
+    return <div>Loading1...</div>;
+  }
+
+  if (isError) {
+    return <div>{isError.message}</div>;
+  }
 
   return (
     <div className={styles.todoApp}>
       <Title text={dictionary.todo.todoListTitle} className={styles.title} />
       <TodoForm dictionary={dictionary} />
-      {todos.length > 0 ? (
-        <Todos todos={todos} dictionary={dictionary} />
+      {todos ? (
+        todos?.length > 0 ? (
+          <Todos todos={todos} dictionary={dictionary} />
+        ) : (
+          <div>You&apos;ve done all of your todos so far</div>
+        )
       ) : (
-        <div>You&apos;ve done all of your todos so far</div>
+        <div>Loading...</div>
       )}
     </div>
   );
